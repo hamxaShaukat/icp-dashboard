@@ -5,7 +5,7 @@ import { Maximize2 } from "lucide-react";
 
 export default function GraphCard({title,value,unit,series, options,smallData}){
   return (
-    <div className="xl:w-[28vw] xl:h-[55vh] md:w-[42vw] md:h-[52vh] w-[85vw] h-[37vh]  bg-[#1F1D39] rounded-2xl border border-[#444464]">
+    <div className="2xl:w-[28vw] 2xl:h-[55vh] xl:w-[28vw] xl:h-[55vh] lg:w-[42vw] lg:h-[52vh] md:w-[42vw] md:h-[47vh] w-[85vw] h-[37vh]  bg-[#1F1D39] rounded-2xl border border-[#444464]">
       <div className="w-[90%] h-[15%]  m-auto flex justify-start items-center">
         <span className={`${smallData ? "text-sm" : "text-xl"} text-white tracking-tight`}>
           {title}
@@ -18,7 +18,7 @@ export default function GraphCard({title,value,unit,series, options,smallData}){
         </span>
       </div>
       <div className="w-[90%] h-[15%]  m-auto flex justify-start items-end">
-        <span className="text-5xl font-medium text-white tracking-tight">
+        <span className="2xl:text-5xl xl:text-5xl md:text-4xl sm:text-4xl text-3xl font-medium text-white tracking-tight">
           {value}
         </span>
         <span className="text-xl text-white tracking-tight ml-2">

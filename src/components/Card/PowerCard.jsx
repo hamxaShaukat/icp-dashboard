@@ -79,7 +79,7 @@ function PowerCard() {
     },
   };
   return (
-    <div className="xl:w-[28vw] xl:h-[55vh] md:w-[42vw] md:h-[52vh] w-[85vw] h-[37vh] bg-[#24F0A5] rounded-2xl border border-[#444464]">
+    <div className="2xl:w-[28vw] 2xl:h-[55vh] xl:w-[28vw] xl:h-[55vh] lg:w-[42vw] lg:h-[52vh] md:w-[42vw] md:h-[47vh] w-[85vw] h-[37vh] bg-[#24F0A5] rounded-2xl border border-[#444464]">
       <div className="w-[90%] h-[17%] text-black m-auto flex justify-start items-center">
         <span className='text-2xl'>
             Power Consumption
