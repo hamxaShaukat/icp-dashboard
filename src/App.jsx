@@ -3,6 +3,7 @@ import GlobePage from "./components/globe";
 import Subnet from "./components/Subnet";
 import Bigchart from "./components/Bigchart";
 import Card from "./components/Card/Card";
+import Footer from "./components/Footer";
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
         <Card />
       </div>
       <Bigchart />
+      <div>
+        <Footer />
+      </div>
     </div>
     </>
   );
