@@ -678,7 +678,7 @@ export default function GlobePage() {
           </div>
 
           {/* Data Card Section - 40% on large screens, full width on mobile */}
-          <div className="absolute bottom-[40rem] sm:bottom-[30rem] lg:relative lg:bottom-20 lg:-right-20 w-full lg:w-2/5 xl:w-1/3 p-4 lg:p-8 flex items-center">
+          <div className="absolute bottom-[40rem] sm:bottom-[30rem] lg:relative lg:bottom-20 lg:-right-0 xl:-right-20 w-full lg:w-2/5 xl:w-1/3 p-4 lg:p-8 flex items-center">
             <Card className="w-full bg-[#1F1E38] border-white/20 text-white py-2 px-4 max-h-[72vh] overflow-y-auto rounded-2xl shadow-2xl shadow-purple-500/20 border">
               <div className="flex items-center justify-between">
                 <div className="text-xl lg:text-2xl font-semibold text-white">
