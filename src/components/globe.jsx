@@ -268,73 +268,7 @@ const countriesData = [
   },
 ];
 
-// Particle component for background
-const ParticleBackground = () => {
-  const [particles, setParticles] = useState([]);
 
-  useEffect(() => {
-    const generateParticles = () => {
-      const newParticles = [];
-      for (let i = 0; i < 100; i++) {
-        newParticles.push({
-          id: i,
-          x: Math.random() * 100,
-          y: Math.random() * 100,
-          size: Math.random() * 3 + 1,
-          opacity: Math.random() * 0.5 + 0.2,
-          speed: Math.random() * 2 + 0.5,
-        });
-      }
-      setParticles(newParticles);
-    };
-
-    generateParticles();
-  }, []);
-
-  return (
-    <div className="fixed inset-0 overflow-hidden pointer-events-none">
-      {particles.map((particle) => (
-        <div
-          key={particle.id}
-          className="absolute rounded-full bg-cyan-400/30 animate-pulse"
-          style={{
-            left: `${particle.x}%`,
-            top: `${particle.y}%`,
-            width: `${particle.size}px`,
-            height: `${particle.size}px`,
-            opacity: particle.opacity,
-            animationDuration: `${particle.speed}s`,
-            animationDelay: `${Math.random() * 2}s`,
-          }}
-        />
-      ))}
-
-      {/* Floating geometric shapes */}
-      {[...Array(15)].map((_, i) => (
-        <div
-          key={`shape-${i}`}
-          className="absolute animate-float opacity-10"
-          style={{
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animationDelay: `${Math.random() * 5}s`,
-            animationDuration: `${8 + Math.random() * 4}s`,
-          }}
-        >
-          {i % 3 === 0 && (
-            <div className="w-8 h-8 border border-cyan-400/20 rotate-45" />
-          )}
-          {i % 3 === 1 && (
-            <div className="w-6 h-6 rounded-full border border-purple-400/20" />
-          )}
-          {i % 3 === 2 && (
-            <div className="w-0 h-0 border-l-4 border-r-4 border-b-8 border-l-transparent border-r-transparent border-b-blue-400/20" />
-          )}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 export default function GlobePage() {
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -456,7 +390,9 @@ export default function GlobePage() {
 
       {/* Main Content Container */}
       <div
-        className={`h-[200vh] sm:h-[200vh] lg:h-[120vh] ${isLargeScreen ? "flex justify-center" : ""}`}
+        className={`h-[200vh] sm:h-[200vh] lg:h-[120vh] ${
+          isLargeScreen ? "flex justify-center" : ""
+        }`}
       >
         <div
           className={`flex flex-col lg:flex-row h-[250vh] lg:h-[120vh] ${
@@ -482,113 +418,18 @@ export default function GlobePage() {
                     : "absolute left-4 -top-2 xs:-left-6 xs:-top-12 md:left-[-27rem] md:-top-60 lg:left-[-56rem] lg:-top-44"
                 }`}
               >
-                <Globe
-                  ref={globeEl}
-                  globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                  showGlobe={true}
-                  onGlobeReady={() => {
-                    console.log("Globe is ready!");
-                    const scene = globeEl.current.scene();
-
-                    const globeMesh = scene.children.find(
-                      (obj) => obj.type === "Mesh" && obj.name === "globe"
-                    );
-
-                    if (globeMesh) {
-                      globeMesh.material.transparent = true;
-                      globeMesh.material.opacity = 0.1;
-                    }
-                    console.log(scene);
-                  }}
-                  showAtmosphere={true}
-                  atmosphereColor="#1C0C34"
-                  atmosphereAltitude={0.05}
-                  backgroundColor="rgba(0, 0, 0,0)"
-                  pointsData={countriesData}
-                  pointAltitude={0.002}
-                  pointColor={() => "#6E3AC9"}
-                  pointRadius={1.2}
-                  pointResolution={12}
-                  onPointHover={handleCountryHover}
-                  onPointClick={handleCountryClick}
-                  enablePointerInteraction={true}
-                  animateIn={true}
-                  width={dimensions.width}
-                  height={dimensions.height}
-                  arcsData={arcsData}
-                  arcColor={() => "rgba(16, 32, 181, 0.8)"}
-                  arcStroke={0.7}
-                  arcAltitude={0.2}
-                  arcDashLength={0.6}
-                  arcDashGap={0.3}
-                  arcDashAnimateTime={1500}
-                  pointsMerge={false}
-                  pointsTransitionDuration={2000}
-                  arcTransitionDuration={2000}
+                <iframe
+                  src="/mode/index.html"
+                  
+                  style={{ width: dimensions.width, height: dimensions.height, border: "none" }}
+                  
+                  title="My Mode"
                 />
-
-                {/* Floating particles effect around globe */}
-                <div className="absolute inset-0 pointer-events-none">
-                  {[...Array(20)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60 animate-pulse"
-                      style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                        animationDelay: `${Math.random() * 3}s`,
-                        animationDuration: `${2 + Math.random() * 2}s`,
-                      }}
-                    />
-                  ))}
-                </div>
+                
               </div>
             </div>
 
-            {/* Enhanced CSS for stunning effects */}
-            <style jsx>{`
-              :global(.scene-container) {
-                filter: contrast(1.3) brightness(1.2) saturate(1.1);
-              }
-              :global(.scene-container canvas) {
-                box-shadow: 0 0 100px rgba(0, 212, 255, 0.4),
-                  0 0 200px rgba(0, 212, 255, 0.2),
-                  inset 0 0 100px rgba(0, 212, 255, 0.1);
-              }
-              @keyframes float {
-                0%,
-                100% {
-                  transform: translateY(0px) rotate(0deg);
-                }
-                50% {
-                  transform: translateY(-20px) rotate(180deg);
-                }
-              }
-              .animate-float {
-                animation: float 6s ease-in-out infinite;
-              }
-
-              /* Particle animations */
-              @keyframes particleFloat {
-                0%,
-                100% {
-                  transform: translateY(0px) translateX(0px);
-                }
-                25% {
-                  transform: translateY(-10px) translateX(5px);
-                }
-                50% {
-                  transform: translateY(-5px) translateX(-5px);
-                }
-                75% {
-                  transform: translateY(-15px) translateX(3px);
-                }
-              }
-
-              .animate-particle {
-                animation: particleFloat 8s ease-in-out infinite;
-              }
-            `}</style>
+          
 
             {/* Tooltip */}
             {tooltip.show && tooltip.data && (
