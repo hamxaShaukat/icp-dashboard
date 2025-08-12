@@ -36,35 +36,32 @@
         myearth.addEventListener("ready", function () {
           this.startAutoRotate();
 
-          // connections
-
-          var line = {
-            color: "#009CFF",
-            opacity: 0.35,
-            hairline: true,
-            offset: -0.5,
-          };
-
+        
           countriesData.forEach((country) => {
-            myearth.addSprite({
-              image: "./point-marker.svg", // could be a small dot or custom marker
+            let sprite = myearth.addSprite({
+              image: "./point-marker.svg",
               location: { lat: country.lat, lng: country.lng },
-              scale: 0.02,
+              scale: 0.8,
               opacity: 1,
+              interactive: true
             });
+
+            sprite.userData = country; // Store the country's info inside the sprite
           });
 
           // add 8 shine sprites
 
-          for (var i = 0; i < 8; i++) {
-            sprites[i] = this.addSprite({
-              image: "./hologram-shine.svg",
-              scale: 0.01,
-              offset: -0.5,
-              opacity: 0.5,
-            });
-            pulse(i);
+          
+        });
+        myearth.addEventListener("spriteover", function (sprite) {
+          let country = sprite.userData;
+          if (country) {
+            showInfo(country);
           }
+        });
+
+        myearth.addEventListener("spriteout", function () {
+          hideInfo();
         });
 
         myearth.addEventListener("click", function (event) {
@@ -78,6 +75,12 @@
             // add
             selected_countries.push(event.id);
           }
+
+          setInterval(() => {
+            sprites.forEach((s) => {
+              s.scale = 0.02 + Math.random() * 0.01; // make it "pulse"
+            });
+          }, 100);
 
           // build mapStyles CSS string like: #US, #CN, #RU { fill: green; }
           if (selected_countries.length) {
@@ -126,6 +129,31 @@
             });
           },
         });
+      }
+
+      function showInfo(country) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.innerHTML = `
+    <strong>${country.country}</strong> (${country.flag})<br>
+    City: ${country.city}<br>
+    Total Nodes: ${country.totalNodes}
+  `;
+        tooltip.style.display = "block";
+
+        // Update position with mouse movement
+        document.addEventListener("mousemove", moveTooltip);
+      }
+
+      function hideInfo() {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.style.display = "none";
+        document.removeEventListener("mousemove", moveTooltip);
+      }
+
+      function moveTooltip(e) {
+        let tooltip = document.getElementById("tooltip");
+        tooltip.style.left = e.pageX + 10 + "px";
+        tooltip.style.top = e.pageY + 10 + "px";
       }
 
       // locations conntected by lines and places where hologram shines appear
@@ -243,150 +271,6 @@
           nodeProviders: 1,
           subnets: 10,
         },
-        {
-          id: 8,
-          country: "Thailand",
-          city: "Bangkok",
-          region: "Asia",
-          flag: "🇹🇭",
-          lat: 13.7563,
-          lng: 100.5018,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 9,
-          country: "Russia",
-          city: "Moscow",
-          region: "Asia",
-          flag: "🇷🇺",
-          lat: 55.7569,
-          lng: 37.6151,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 10,
-          country: "Australia",
-          city: "Sydney",
-          region: "Oceania",
-          flag: "🇦🇺",
-          lat: 33.8727,
-          lng: 151.2057,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 11,
-          country: "New Zealand",
-          city: "Wellington",
-          region: "Oceania",
-          flag: "🇳🇿",
-          lat: 41.2924,
-          lng: 174.7787,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 12,
-          country: "Mexico",
-          city: "Durango",
-          region: "South America",
-          flag: "🇲🇽",
-          lat: 24.5593,
-          lng: 104.6588,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 13,
-          country: "France",
-          city: "Paris",
-          region: "Europe",
-          flag: "🇫🇷",
-          lat: 48.8575,
-          lng: 2.3514,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 14,
-          country: "Spain",
-          city: "Madrid",
-          region: "Europe",
-          flag: "🇪🇸",
-          lat: 40.4167,
-          lng: 3.7033,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 15,
-          country: "Ukraine",
-          city: "Lviv",
-          region: "Europe",
-          flag: "🇺🇦",
-          lat: 49.8397,
-          lng: 24.0297,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
-        {
-          id: 16,
-          country: "Peru",
-          city: "Cusco",
-          region: "South America",
-          flag: "🇵🇪",
-          lat: 13.532,
-          lng: 71.9675,
-          dataCenterId: "idr",
-          dataCenterOwner: "Telehouse",
-          replicaNodes: 2,
-          apiBoundaryNodes: 1,
-          totalNodes: 25,
-          nodeProviders: 1,
-          subnets: 10,
-        },
       ];
     </script>
   </head>
@@ -395,5 +279,18 @@
     <div id="myearth">
       <div id="glow"></div>
     </div>
+    <div
+      id="tooltip"
+      style="
+        position: absolute;
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 6px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        display: none;
+        pointer-events: none;
+      "
+    ></div>
   </body>
 </html>
