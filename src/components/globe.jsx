@@ -383,7 +383,7 @@ export default function GlobePage() {
   return (
     <div className="h-[200vh] sm:h-[200vh] lg:h-[120vh] bg-gradient-to-br from-slate-900 via-[#1C0C34] to-slate-900 relative">
       {/* Particle Background for large screens */}
-      {isLargeScreen && <ParticleBackground />}
+    
 
       {/* Glass Navbar */}
       <Navbar isLargeScreen={isLargeScreen} />
